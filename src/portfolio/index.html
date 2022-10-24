@@ -1,0 +1,9 @@
+
+
+<title>Construtora Confidence - Portfolio</title>
+
+{% set portfoliolist = collections.portifolio %}
+
+{% for portfolioitem in portfoliolist | reverse %}
+    {{portfolioitem.titulo}}
+{% endfor %}

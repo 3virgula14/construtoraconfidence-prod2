@@ -12,24 +12,33 @@ public_folder: "/static/img"
 local_backend: true
 # publish_mode: editorial_workflow
 collections:
-  - label: "Blog"
-    name: "blog"
-    folder: "src/posts"
-    create: true
-    editor:
-      preview: false
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "string" }
-      - { label: "Author", name: "author", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - widget: select
-        label: "tags"
-        name: "tags"
-        multiple: true
-        create: true
-        options: ["Tags", "created", "from", "config.yml"]
+  - name: "portfolio_items" # Used in routes, e.g., /admin/collections/sections
+    label: "Sessão de portfólio" # Used in the UI
+    format: json
+    public_folder: 'https://construtoraconfidence.com/uploads'
+    folder: "public/portfolio_items/" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{fields.titulo}}-{{year}}-{{month}}-{{day}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      #- {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+      - {label: "Título", name: "titulo", widget: "string"}
+        name: "sessions"
+        widget: "list"
+        allow_add: true
+        fields: 
+          - {label: "Foto", name: "foto", widget: "file"}
+          - {label: "Título", name: "titulo", widget: "string"}
+          - {label: "Descrição curta", name: "shortstory", widget: "text"}
+          - {label: "Descrição longa", name: "tailstory", widget: "text"}
+          - {label: "MD Session", name: "mdsession", widget: "markdown"}
+              
+      - label: "Story"
+        name: story
+        widget: "object"
+        fields:
+          - {label: "Descrição curta", name: "twitterlike", widget: "text"}
+          - {label: "Descrição longa", name: "2paraph", widget: "markdown"}
+          
   - label: "Settings"
     name: "settings"
     editor:
